@@ -1,0 +1,13 @@
+SELECT "REG_ANS", SUM(COALESCE("VL_SALDO", 0)) AS total_despesas
+FROM (
+    SELECT "REG_ANS", "VL_SALDO" FROM public."1T2024"
+    UNION ALL
+    SELECT "REG_ANS", "VL_SALDO" FROM public."2T2024"
+    UNION ALL
+    SELECT "REG_ANS", "VL_SALDO" FROM public."3T2024"
+    UNION ALL
+    SELECT "REG_ANS", "VL_SALDO" FROM public."4T2024"
+) AS todas_despesas
+GROUP BY "REG_ANS"
+ORDER BY total_despesas DESC
+LIMIT 10;
